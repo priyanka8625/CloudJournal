@@ -17,7 +17,7 @@ connecToMongo()
     })
 
     //listen server on port
-    app.listen(process.env.PORT || 3030, ()=>{
+    app.listen(process.env.PORT || 5050, ()=>{
         console.log(`server is running on port : ${process.env.PORT}`)
     })
     
