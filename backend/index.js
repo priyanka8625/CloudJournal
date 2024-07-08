@@ -1,16 +1,33 @@
 const connecToMongo = require('./db.js')
 const express = require('express')
+const dotenv = require('dotenv')
 
-connecToMongo()
-
+dotenv.config({
+    path: './.env'
+})
 
 const app = express()
-const port = process.env.PORT || 3000
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
+connecToMongo()
+.then(() => {
+    //listen for errors before creating server
+    app.on("error", (error) =>{
+        console.log("APP ERROR: "+error)
+        throw(error)//to stop appln
+    })
+
+    //listen server on port
+    app.listen(process.env.PORT || 3030, ()=>{
+        console.log(`server is running on port : ${process.env.PORT}`)
+    })
+    
+})
+.catch((err) => {
+    console.log(`Mongodb connection failed: ${err}`)
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+app.use(express.json())
+
+//routes
+app.use('/api/auth', require('./routes/auth.routes.js'))
+app.use('/api/notes', require('./routes/note.routes.js'))
