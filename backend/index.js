@@ -1,12 +1,14 @@
 const connecToMongo = require('./db.js')
 const express = require('express')
 const dotenv = require('dotenv')
-
+const cors = require('cors')
 dotenv.config({
     path: './.env'
 })
 
 const app = express()
+
+app.use(cors());
 
 connecToMongo()
 .then(() => {
