@@ -56,7 +56,7 @@ const NoteState = (props)=>{
                 "auth-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY4YzQ3MTBlOWExMmJhZjg3ZTgwYzM2In0sImlhdCI6MTcyMDYyNDA4OH0.0_1AcmdQehE_TJjTlINv393N9xKdB1k_4jIgzJWXklM"},
         });
         const json = await response.json();
-
+        console.log(json);
         // client side logic
         console.log("Deleting a note with id "+id);
         setNotes(notes.filter( (note)=>{

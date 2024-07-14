@@ -3,6 +3,7 @@ const router = express.Router()
 const fetchUser = require('../middleware/fetchUser.middleware.js')
 const Note = require('../models/note.model.js')
 const { body, validationResult } = require('express-validator');
+const { default: mongoose } = require('mongoose');
 
 
 //Route1: Fetch all notes - /api/notes/fetchnotes : log in required
@@ -56,7 +57,8 @@ router.put('/updatenote/:id', fetchUser, async (req, res) => {
 
         //find if user requesting the update operation through params by passing otheruser's note id is matching with the logged in user or not
         //to build a strong backend api
-        let note = await Note.findById(req.params.id);
+        const noteId = new mongoose.Types.ObjectId(req.params.id);
+        let note = await Note.findById(noteId);
         if(!note){
             return res.status(404).send("Note Not found");
         }
@@ -81,7 +83,8 @@ router.delete('/deletenote/:id', fetchUser, async (req, res) => {
 
         //find if user requesting the delete operation through params is passing otheruser's note id or what 
         //to build a strong backend api
-        let note = await Note.findById(req.params.id);
+        const noteId = new mongoose.Types.ObjectId(req.params.id);
+        let note = await Note.findById(noteId);
         if(!note){
             return res.status(404).send("Note Not found");
         }
