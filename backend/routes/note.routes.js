@@ -67,7 +67,7 @@ router.put('/updatenote/:id', fetchUser, async (req, res) => {
             return res.status(401).send("Not allowed to update")
         }
 
-        note = await Note.findByIdAndUpdate(req.params.id, {$set: newNote}, {new:true})
+        note = await Note.findByIdAndUpdate(noteId, {$set: newNote}, {new:true})
 
         res.status(200).json(note)
     } catch (error) {
@@ -93,7 +93,7 @@ router.delete('/deletenote/:id', fetchUser, async (req, res) => {
             return res.status(401).send("Not allowed to delete")
         }
 
-        note = await Note.findByIdAndDelete(req.params.id)
+        note = await Note.findByIdAndDelete(noteId)
 
         res.status(200).json({"Success": "Note is deleted", note:note})
     } catch (error) {
