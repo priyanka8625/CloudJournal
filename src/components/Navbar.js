@@ -1,12 +1,8 @@
-import { useEffect } from 'react'
 import React from 'react'
 import {Link, useLocation} from 'react-router-dom'
 
 const Navbar = () => {
     let location = useLocation()//changed whenever url i.e. location is changed
-    useEffect(() => {
-        console.log(location.pathname);
-    }, [location])
 
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
