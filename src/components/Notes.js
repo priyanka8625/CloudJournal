@@ -50,11 +50,11 @@ const Notes = () => {
                             <form className='my-3'>
                                 <div className="mb-3">
                                     <label htmlFor="etitle" className="form-label">Title</label>
-                                    <input type="text" className="form-control" id="etitle" name="etitle" value={note.etitle} aria-describedby="emailHelp" onChange={onChange} />
+                                    <input type="text" className="form-control" id="etitle" name="etitle" value={note.etitle} aria-describedby="emailHelp" onChange={onChange} minLength={3} required/>
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="edescription" className="form-label">Description</label>
-                                    <input type="text" className="form-control" id="edescription" name='edescription' value={note.edescription} onChange={onChange} />
+                                    <input type="text" className="form-control" id="edescription" name='edescription' value={note.edescription} onChange={onChange} minLength={5} required/>
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="etag" className="form-label">Tag</label>
@@ -63,15 +63,18 @@ const Notes = () => {
                             </form>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={refClose}>Close</button>
-                            <button type="button" className="btn btn-primary" onClick={handleClick}>Save note</button>
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={refClose} >Close</button>
+                            <button disabled={note.etitle.length<3 || note.edescription.length<5} type="button" className="btn btn-primary" onClick={handleClick}>Save note</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div className="row my-3">
-                <h2>Your notes</h2>
+            <h2>Your notes</h2>
+                <div className="conainer mx-2">
+                    {notes.length===0 && "No notes to display"}
+                </div>
                 {
                     notes.map((note) => {
                         return <NoteItem note={note} key={note._id} updateNote={updateNote} />;

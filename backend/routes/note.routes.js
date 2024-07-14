@@ -13,7 +13,7 @@ router.get('/fetchallnotes', fetchUser, async (req, res) => {
         const notes = await Note.find({ user: userId })
         res.status(200).json(notes)
     } catch (error) {
-        res.status(500).json({ error: error.message() })
+        res.status(500).json({ error: error.message })
     }
 })
 
@@ -39,7 +39,7 @@ router.post('/addnote', fetchUser, [
         })
         res.status(200).json(savedNote)
     } catch (error) {
-        res.status(500).json({error: error.message()})
+        res.status(500).json({error: error.message})
     }
 
 })
@@ -71,7 +71,7 @@ router.put('/updatenote/:id', fetchUser, async (req, res) => {
 
         res.status(200).json(note)
     } catch (error) {
-        res.status(500).json({error: error.message()})
+        res.status(500).json({error: error.message})
     }
 
 })
