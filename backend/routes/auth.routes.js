@@ -16,17 +16,18 @@ router.post('/createuser',
         body('password', 'password must be atleast 5 characters long').isLength({ min: 5 })
     ],
     async (req, res) => {
+        let success = false
         // validate req.body data
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() })
+            return res.status(400).json({success, errors: errors.array() })
         }
 
         try {
             //user already exists?
             let user = await User.findOne({ email: req.body.email })
             if (user) {
-                return res.status(400).json({ error: 'user with this email already exists' })
+                return res.status(400).json({success, error: 'user with this email already exists' })
             }
             //secure password using bcrypt
             const salt = await bcrypt.genSalt(10)
@@ -48,11 +49,12 @@ router.post('/createuser',
 
             //return res
             // res.json(user)
-            res.json({ authToken: authToken })
+            success= true
+            res.json({success, authToken: authToken })
 
         } catch (error) {
             console.log(error.message)
-            return res.status(500).json({ error: error.message })
+            return res.status(500).json({success, error: error.message })
         }
     }
 )
@@ -65,22 +67,23 @@ router.post('/login',
         body('password', 'password cant be blank').exists()
     ],
     async (req, res) => {
+        let success = false;
         // validate req.body data
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() })
+            return res.status(400).json({ success, errors: errors.array() })
         }
 
         const {email, password} = req.body;
         try{
             let user = await User.findOne({email})
             if(!user){
-                return res.status(400).json({error: 'Please try to login with correct credentials'})
+                return res.status(400).json({success, error: 'Please try to login with correct credentials'})
             }
 
             const passwordCompare = await bcrypt.compare(password, user.password)
             if(!passwordCompare){
-                return res.status(400).json({error: 'Please try to login with correct credentials'})
+                return res.status(400).json({success, error: 'Please try to login with correct credentials'})
             }
             //if user is with correct details
             const data = {
@@ -89,8 +92,8 @@ router.post('/login',
                 }
             }
             const authToken = jwt.sign(data, process.env.JWT_SECRET)
-
-            res.json({ authToken: authToken })
+            success = true
+            res.json({ success, authToken: authToken })
         }catch(error){
             console.log(error.message)
             return res.status(500).json({ error: error.message })
@@ -100,12 +103,14 @@ router.post('/login',
 
 //Route3: Get logged in user information on /api/auth/getuser - login required
 router.get('/getuser', fetchUser, async(req, res)=>{
+    let success = false;
     const userId = req.user.id
     try{
         const user = await User.findById(userId).select("-password")
-        res.status(200).json(user)
+        success = true
+        res.status(200).json({success, user})
     }catch(error){
-        res.status(500).send("Internal Server Error")
+        res.status(500).json({success, message:"Internal Server Error"})
     }
 })
 
