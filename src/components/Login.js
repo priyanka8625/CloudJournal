@@ -33,8 +33,9 @@ const Login = (props) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value })
     }
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
+        <div className='container mt-3'>
+            <h2 className='my-2'>Login to continue to CloudJournal</h2>
+            <form onSubmit={handleSubmit} className='my-3'>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email address</label>
                     <input type="email" className="form-control" id="email" name='email' value={credentials.email} onChange={onChange} aria-describedby="emailHelp" />

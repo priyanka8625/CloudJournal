@@ -13,7 +13,7 @@ const NoteState = (props)=>{
             method: "GET",
             headers: { 
                 "Content-Type": "application/json",
-                "auth-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY4YzQ3MTBlOWExMmJhZjg3ZTgwYzM2In0sImlhdCI6MTcyMDYyNDA4OH0.0_1AcmdQehE_TJjTlINv393N9xKdB1k_4jIgzJWXklM"},
+                "auth-token": localStorage.getItem('token')},
         });
         const json = await response.json();
         setNotes(json);
@@ -27,7 +27,7 @@ const NoteState = (props)=>{
             body: JSON.stringify({ title, description, tag }),
             headers: { 
                 "Content-Type": "application/json",
-                "auth-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY4YzQ3MTBlOWExMmJhZjg3ZTgwYzM2In0sImlhdCI6MTcyMDYyNDA4OH0.0_1AcmdQehE_TJjTlINv393N9xKdB1k_4jIgzJWXklM"},
+                "auth-token": localStorage.getItem('token')},
         });
         const note = await response.json();
         console.log(note);
@@ -42,7 +42,7 @@ const NoteState = (props)=>{
             method: "DELETE",
             headers: { 
                 "Content-Type": "application/json",
-                "auth-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY4YzQ3MTBlOWExMmJhZjg3ZTgwYzM2In0sImlhdCI6MTcyMDYyNDA4OH0.0_1AcmdQehE_TJjTlINv393N9xKdB1k_4jIgzJWXklM"},
+                "auth-token": localStorage.getItem('token')},
         });
         const json = await response.json();
         console.log(json);
@@ -61,7 +61,7 @@ const NoteState = (props)=>{
             body: JSON.stringify({ title, description, tag }),
             headers: { 
                 "Content-Type": "application/json",
-                "auth-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY4YzQ3MTBlOWExMmJhZjg3ZTgwYzM2In0sImlhdCI6MTcyMDYyNDA4OH0.0_1AcmdQehE_TJjTlINv393N9xKdB1k_4jIgzJWXklM"},
+                "auth-token": localStorage.getItem('token')},
         });
         const note = await response.json();
         console.log(note);

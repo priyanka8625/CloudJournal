@@ -37,8 +37,9 @@ const Signup = (props) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value })
     }
     return (
-        <div className='container' >
-            <form onSubmit={handleSubmit}>
+        <div className='container mt-3'>
+            <h2 className='my-2'>Create an account to use CloudJournal</h2>
+            <form onSubmit={handleSubmit} className='my-3'>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Name</label>
                     <input type="text" className="form-control" id="name" name='name' onChange={onChange} aria-describedby="emailHelp" required minLength={3}/>
